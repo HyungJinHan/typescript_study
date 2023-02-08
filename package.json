@@ -1,0 +1,20 @@
+{
+  "name": "typescript_blockchain",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyungJinHan/typescript_blockchain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HyungJinHan/typescript_blockchain/issues"
+  },
+  "homepage": "https://github.com/HyungJinHan/typescript_blockchain#readme",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}
