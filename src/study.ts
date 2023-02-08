@@ -90,6 +90,7 @@ function test(name: string | number) {
 }
 
 // --- Call Signatures ---
+// 타입을 만들고 불러오는 작업
 function addA(a: number, b: number) {
   return (
     a + b
@@ -100,7 +101,56 @@ function addA(a: number, b: number) {
 const addB = (a: number, b: number) => a + b
 // const addB: (a: number, b: number) => number
 
-type Add = (a: number, b: number) => number;
+type AddA = (a: number, b: number) => number;
 
-const addC: Add = (a, b) => a + b
+const addC: AddA = (a, b) => a + b
 // Add = (a: number, b: number) => number
+
+// --- Overloading ---
+// 함수가 여러개의 Call Signatures를 가지고 있을 때 발생
+type AddB = {
+  (a: number, b: number): number;
+  (a: number, b: string): number;
+}
+
+const addD: AddB = (a, b) => {
+  if (typeof b === 'string') {
+    return a
+  }
+  return a + b
+}
+// Overloading 예제
+
+type Config = {
+  path: string,
+  state: object
+}
+
+type Push = {
+  (path: string): void;
+  (config: Config): void;
+}
+
+const push: Push = (config) => {
+  if (typeof config === 'string') {
+    console.log(config);
+  } else {
+    console.log(config.path, config.state);
+  }
+}
+// Overloading 방지 예제
+
+// --- Polymorphism ---
+// 종합적으로 다양한 타입을 지정하는 방법
+type SuperPrint = {
+  <T>(arr: T[]): T
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+const arrA = superPrint([1, 2, 3, 4]); // const arrA: number
+const arrB = superPrint([true, false, true, false]); // const arrB: boolean
+const arrC = superPrint(['1', '2', '3', '4']); // const arrC: string
+const arrD = superPrint([1, '2', 3, true, [1, 2]]); // const arrD: string | number | boolean | number[]
+
+// https://www.typescriptlang.org/ko/play?#code/C4TwDgpgBAcghgW2gXigZ2AJwJYDsDmA3AFCiRQCC+KUuArggEYSYlnQAKANnCC1KgDexKKKiYIcACYB7XFxC1EEAFyxlAGhFiA9DqiBfccAMdVEAgE4EqxwDzjgHQ6ogDCHAqBNRAEb2AAGu2i41APxqqEDyg9KC8IX1oGZkwoAB8oOlwpCAAzPAgpYgBfYmJggFoCgGM6YAK8nMK5DCgwHj5MCig1bl5+IUDcZTUAcgALXoArbq0xEOo1ACYADiyc-KKSsoqq4Bq6lgAhJqgW+oEoYVHOpB7etF7u2dz9MuLSgpzkhMLgbDk11swAWTgAaxYABTHVTqJAASm2u34hzEEmAdEwuAOgSOykC2WyxEquGq-QG+1qnx+-0wAL6g26YJIeIAdKF9tMSNcoLdFg8sSsPvViSw0PsgV1QRAIc11tFkAA+KAAwTAzJU5Y41ZnXoEsU8zBoMkqynU8506j7ACsADYmfM8nclhylREmLy1BJpHIFHaogBtAC6+3dAEYNFAJgGAMyekj0e2amlgOjnAH+wMK4JO2TyEC2QAe44AdVfsTjc0oAophMDJMGC5jcFvdyjbqoT6gB5R2SVOu90YHAEAMRqIBxgyGRcSS4b2od3koYB6YBrB0CBhoL6Bu11b1lgADTU7aweHw3ciLD7A6HcBHPtnEADE+GgamC+C6+ZgBdxwDgHYAYmqggBqB8yAA1WoIBemsABrGoEAHCHABxBwAR5qgQBEScAFLHAAtVisWSra0h1WOA1ASJJUlwdJ9iwlI0ikEg0KgRg1HoLguH2SiuHNStLTZGtSMKH0w2ZFi1FPEAvRZKBAAGFwBQ8cAEXGoEAA6H-0AB5HAAHJqBAClRwADmq-cxAA1VkxABBxxDmVZasclIqRMNwX5cBkAB3XAmWwZJpXYGRrKkARkFQboexYSlkVGfT9mDEhPIgVYaAcgBqKBfRIbJgikVwoEAaiHAATxjMAOAwATocASNWoEAHaGA0AEjHAA1OqBH2IKybPACA7KgBynOcjtd3cmFRC85y8UuPyAv2KQaWAGQAFUwEgTAAGE4DQCBwuZKKoEADm64sAF9HEqAqA0synL8sKi0rXZJ5cBeN4kV6CAqJkAEIXqqBsTQQcIBpLgZHwbUDpu3VZmCLadvefbDuOtQADcZGwBy8nEfyESRQAkGqfKBADHRwAUpqSpCdOtV7Xne7AvtoCBvuhQJgF6EtTPR-GixLUlugAD3Jylnv0JHdqgXpUbBCiMf4QG4RBqBQdEwAICcAAGbbEAHNnAFIOlTZLk2GgOZCBSYhQAIMcADzGoEADJnABrOx5nmRpFgAgDABROdAdwIWI3RYE7AmKgFbOs4FHOqg38DqlExGt4IaoIdEoAOkaoHNy2lCQG2oBcg9MAd0ZUX94JXMwd3PegU7w+gSPmeiQHvwK9ErgtKAhqoqAAGVsHwTp4QkPklhp95pCkAEMONzA+wo4PTdENnEWlQI4CgELGG0ctMSr+MAyNKkgA
