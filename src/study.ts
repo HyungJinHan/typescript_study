@@ -88,3 +88,19 @@ function test(name: string | number) {
     name // never - 사용 X
   }
 }
+
+// --- Call Signatures ---
+function addA(a: number, b: number) {
+  return (
+    a + b
+  )
+}
+// function addA(a: number, b: number): number
+
+const addB = (a: number, b: number) => a + b
+// const addB: (a: number, b: number) => number
+
+type Add = (a: number, b: number) => number;
+
+const addC: Add = (a, b) => a + b
+// Add = (a: number, b: number) => number
