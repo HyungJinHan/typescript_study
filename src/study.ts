@@ -1,3 +1,4 @@
+// --- 기본 타입 지정법 ---
 type Name = string;
 type Age = number;
 type Player = {
@@ -7,20 +8,15 @@ type Player = {
   // age?: number | undefined
 }
 
-// ---cut---
-
+// --- 지정된 타입 사용 ---
 const playerA: Player = {
   name: 'hhj',
   age: 28
 }
 
-// ---cut---
-
 const playerB: Player = {
   name: 'hsh'
 }
-
-// ---cut---
 
 function playerMaker(name: Name): Player {
   return {
@@ -31,37 +27,30 @@ function playerMaker(name: Name): Player {
 const hhj = playerMaker('hhj');
 hhj.age = 28;
 
-// ---cut---
-
 const playerMakers = (name: Name): Player => ({ name });
 
 const hsh = playerMakers('hsh');
 hsh.age = 56;
 
-// ---cut---
-
+// --- readonly 사용법 ---
 const numbers: readonly number[] = [1, 2, 3];
 // numbers.push(1, 2);
 // readonly로 인한 수정 불가 (Error)
 
-// ---cut---
-
+// --- 배열 형식의 타입 지정 ---
 const playerO: readonly [string, number, boolean] = ['hhj', 28, true]; // O
 // const playerX: [string, number, boolean] = [true, 'hhj', 28]; // X
 // 이렇게 사용할 경우 순서도 중요함
 
-// ---cut---
-
+// --- undefined, null 타입 ---
 let a: undefined = undefined;
 let b: null = null;
 
-// ---cut---
-
+// --- any 타입 ---
 let c = [];
 // let c: any[] - 타입을 신경쓰지 않고 사용하기 위함
 
-// ---cut---
-
+// --- unknown 타입 사용법 ---
 let d: unknown;
 
 if (typeof d === 'number') {
@@ -76,21 +65,20 @@ if (typeof d === 'string') {
 }
 // d가 문자열인 경우 실행 시, 오류 X
 
-// ---cut---
-
+// --- 함수의 void 형식 ---
 function hello() {
   console.log('hello');
 }
 // function hello(): void - return 값이 없는 경우
 
-// ---cut---
-
+// ---void의 예외처리 방식---
 function hi(): never {
   throw new Error('xxx')
 }
 // function hi(): never - return 값을 절대로 출력하지 않는 경우
 // ex) 예외 처리
 
+// --- never 타입 ---
 function test(name: string | number) {
   if (typeof name === 'string') {
     name // string
