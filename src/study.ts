@@ -210,6 +210,20 @@ abstract class ExampleUser {
     return `${this.firstName} ${this.lastName}`
   }
 }
+// ↓ 자동으로 JS 버전으로 만들어줌 ↓
+// class User {
+//   constructor(privateFirstName, privateLastName, privateNickname, firstName, lastName, nickname) {
+//     this.privateFirstName = privateFirstName;
+//     this.privateLastName = privateLastName;
+//     this.privateNickname = privateNickname;
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//     this.nickname = nickname;
+//   }
+//   getFullName() {
+//     return `${this.firstName} ${this.lastName}`;
+//   }
+// }
 
 class ExamplePlayer extends ExampleUser {
   getNickname() {
@@ -225,4 +239,40 @@ hhjClass.getNickname();
 
 hhjClass.getFullName();
 
-// https://www.typescriptlang.org/ko/play?#code/C4TwDgpgBAcghgW2gXigZ2AJwJYDsDmA3AFCiRQCC+KUuArggEYSYlnQAKANnCC1KgDexKKKiYIcACYB7XFxC1EEAFyxlAGhFiA9DqiBfccAMdVEAgE4EqxwDzjgHQ6ogDCHAqBNRAEb2AAGu2i41APxqqEDyg9KC8IX1oGZkwoAB8oOlwpCAAzPAgpYgBfYmJggFoCgGM6YAK8nMK5DCgwHj5MCig1bl5+IUDcZTUAcgALXoArbq0xEOo1ACYADiyc-KKSsoqq4Bq6lgAhJqgW+oEoYVHOpB7etF7u2dz9MuLSgpzkhMLgbDk11swAWTgAaxYABTHVTqJAASm2u34hzEEmAdEwuAOgSOykC2WyxEquGq-QG+1qnx+-0wAL6g26YJIeIAdKF9tMSNcoLdFg8sSsPvViSw0PsgV1QRAIc11tFkAA+KAAwTAzJU5Y41ZnXoEsU8zBoMkqynU8506j7ACsADYmfM8nclhylREmLy1BJpHIFHaogBtAC6+3dAEYNFAJgGAMyekj0e2amlgOjnAH+wMK4JO2TyEC2QAe44AdVfsTjc0oAophMDJMGC5jcFvdyjbqoT6gB5R2SVOu90YHAEAMRqIBxgyGRcSS4b2od3koYB6YBrB0CBhoL6Bu11b1lgADTU7aweHw3ciLD7A6HcBHPtnEADE+GgamC+C6+ZgBdxwDgHYAYmqggBqB8yAA1WoIBemsABrGoEAHCHABxBwAR5qgQBEScAFLHAAtVisWSra0h1WOA1ASJJUlwdJ9iwlI0ikEg0KgRg1HoLguH2SiuHNStLTZGtSMKH0w2ZFi1FPEAvRZKBAAGFwBQ8cAEXGoEAA6H-0AB5HAAHJqBAClRwADmq-cxAA1VkxABBxxDmVZasclIqRMNwX5cBkAB3XAmWwZJpXYGRrKkARkFQboexYSlkVGfT9mDEhPIgVYaAcgBqKBfRIbJgikVwoEAaiHAATxjMAOAwATocASNWoEAHaGA0AEjHAA1OqBH2IKybPACA7KgBynOcjtd3cmFRC85y8UuPyAv2KQaWAGQAFUwEgTAAGE4DQCBwuZKKoEADm64sAF9HEqAqA0synL8sKi0rXZJ5cBeN4kV6CAqJkAEIXqqBsTQQcIBpLgZHwbUDpu3VZmCLadvefbDuOtQADcZGwBy8nEfyESRQAkGqfKBADHRwAUpqSpCdOtV7Xne7AvtoCBvuhQJgF6EtTPR-GixLUlugAD3Jylnv0JHdqgXpUbBCiMf4QG4RBqBQdEwAICcAAGbbEAHNnAFIOlTZLk2GgOZCBSYhQAIMcADzGoEADJnABrOx5nmRpFgAgDABROdAdwIWI3RYE7AmKgFbOs4FHOqg38DqlExGt4IaoIdEoAOkaoHNy2lCQG2oBcg9MAd0ZUX94JXMwd3PegU7w+gSPmeiQHvwK9ErgtKAhqoqAAGVsHwTp4QkPklhp95pCkAEMONzA+wo4PTdENnEWlQI4CgELGG0ctMSr+MAyNKkgA
+// new ExampleUser('HyungJin', 'Han', '삐딱해골', 'HyungJin', 'Han', '삐딱해골');
+// 추상 클래스의 인스턴스를 만들 수 없습니다. (Error)
+
+type Words = {
+  [key: string | number]: string;
+}
+
+class Dict {
+  private words: Words;
+  constructor() {
+    this.words = {}
+  }
+  add(word: Word) {
+    if (this.words[word.term] === undefined) {
+      this.words[word.term] = word.def;
+    }
+  }
+  def(term: string) {
+    return this.words[term]
+  }
+}
+
+class Word {
+  constructor(
+    public term: string,
+    public def: string
+  ) { }
+}
+
+const kimchi = new Word('kimchi', '한국의 음식');
+
+const dict = new Dict();
+
+dict.add(kimchi);
+dict.def('kimchi');
+
+// https://www.typescriptlang.org/ko/play?ts=4.9.5#code/IYIwzgLgTsDGEAJYBthjAgqmAplBA3gFAKlID2AdpFAK7zn4AUJZbbADlAJYBuwEHAi58BOAGLcokAHLAAtjgBcCGt0oBzADSt27Ef0HCehnABk0EOYpVrNOvXoNjjowTO6wA1pQXLV0Orauo6kXOSC8DgAJggAZlKyfraB9iGh4ZGCsahJNgE8aaGcUBE4UbGUnj7JBUHpZACUhAC+RCGgNHCIGjhW1b6KTI0qvOTc0e1svRDitMjI1jjDhA2kUH20UJQIAAYAJAQQABbcYAB0CdJWfi0Ihydn57k3ii27IW1tRChoGAAKqAAnngEDgAB6CSjRDDYUHEaZ9DzeQbLZoIxywKhgcjIHDPcgaJiPC5VFF+RoAbjWCAA9LTXKYEABaBCAQYHALGDgGwewAC4whAAnjgF2hwALo4AcQYQgEQJwA-tQhABG9gAAawClTTT6cYyhUWezuXyhWLJTKlZ8iN8sdREMdjgArBAAXgQlBwAHcEIDgCCoEwAOQACSBtE0ACl1J6tAgfcBKCGw4AEgcAjK2AF1XABc1UZ9fsDwdD4cjmbjSc9VPaqtNkAQFutdodzrhHtT-o0QezYe9EZTueTBdVgBTZtkIQAuC4AM9sAJUOAFKaEIATpsAHp0IQDPNXrOQguYARccAGEOAGc6EIAI8dHA8HhYZZcuiVeOGpqucgkALuOABjqEIAZVsAHN3ChCADzHAAG9esANQOASrG5fK96WrWeSwllPBlzxwa870fF933Fb9f3aA8ZmRGohgLIgkL6OYFiWYZKSAA
