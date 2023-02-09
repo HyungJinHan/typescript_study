@@ -142,18 +142,55 @@ const push: Push = (config) => {
 
 // --- Polymorphism ---
 // 종합적으로 다양한 타입을 지정하는 방법
-type SuperPrint = {
+type SuperPrintA = {
   <T, M>(arrA: T[], arrB?: M): T
 }
 
-const superPrint: SuperPrint = (arr) => arr[0]
+const superPrintA: SuperPrintA = (arr) => arr[0]
 
-const arrA = superPrint([1, 2, 3, 4], 'x');
+const arrA = superPrintA([1, 2, 3, 4], 'x');
 // const superPrint: <number, string>(arrA: number[], arrB?: string | undefined) => number
-const arrB = superPrint([true, false, true, false], 1);
+const arrB = superPrintA([true, false, true, false], 1);
 // const superPrint: <boolean, number>(arrA: boolean[], arrB?: number | undefined) => boolean
-const arrC = superPrint(['1', '2', '3', '4'], [1, 2]);
+const arrC = superPrintA(['1', '2', '3', '4'], [1, 2]);
 // const superPrint: <string, number[]>(arrA: string[], arrB?: number[] | undefined) => string
-const arrD = superPrint([1, '2', 3, true, [1, 2]], false);
+const arrD = superPrintA([1, '2', 3, true, [1, 2]], false);
 // const superPrint: <string | number | boolean | number[], boolean>
 // (arrA: (string | number | boolean | number[])[], arrB?: boolean | undefined) => string | number | boolean | number[]
+
+function superPrintB<T>(a: T[]) {
+  return a[0]
+}
+
+const arrE = superPrintB([1, 2, 3, 4]);
+
+// https://www.typescriptlang.org/ko/play?#code/C4TwDgpgBAcghgW2gXigZ2AJwJYDsDmA3AFCiRQCC+KUuArggEYSYlnQAKANnCC1KgDexKKKiYIcACYB7XFxC1EEAFyxlAGhFiA9DqiBfccAMdVEAgE4EqxwDzjgHQ6ogDCHAqBNRAEb2AAGu2i41APxqqEDyg9KC8IX1oGZkwoAB8oOlwpCAAzPAgpYgBfYmJggFoCgGM6YAK8nMK5DCgwHj5MCig1bl5+IUDcZTUAcgALXoArbq0xEOo1ACYADiyc-KKSsoqq4Bq6lgAhJqgW+oEoYVHOpB7etF7u2dz9MuLSgpzkhMLgbDk11swAWTgAaxYABTHVTqJAASm2u34hzEEmAdEwuAOgSOykC2WyxEquGq-QG+1qnx+-0wAL6g26YJIeIAdKF9tMSNcoLdFg8sSsPvViSw0PsgV1QRAIc11tFkAA+KAAwTAzJU5Y41ZnXoEsU8zBoMkqynU8506j7ACsADYmfM8nclhylREmLy1BJpHIFHaogBtAC6+3dAEYNFAJgGAMyekj0e2amlgOjnAH+wMK4JO2TyEC2QAe44AdVfsTjc0oAophMDJMGC5jcFvdyjbqoT6gB5R2SVOu90YHAEAMRqIBxgyGRcSS4b2od3koYB6YBrB0CBhoL6Bu11b1lgADTU7aweHw3ciLD7A6HcBHPtnEADE+GgamC+C6+ZgBdxwDgHYAYmqggBqB8yAA1WoIBemsABrGoEAHCHABxBwAR5qgQBEScAFLHAAtVisWSra0h1WOA1ASJJUlwdJ9iwlI0ikEg0KgRg1HoLguH2SiuHNStLTZGtSMKH0w2ZFi1FPEAvRZKBAAGFwBQ8cAEXGoEAA6H-0AB5HAAHJqBAClRwADmq-cxAA1VkxABBxxDmVZasclIqRMNwX5cBkAB3XAmWwZJpXYGRrKkARkFQboexYSlkVGfT9mDEhPIgVYaAcgBqKBfRIbJgikVwoEAaiHAATxjMAOAwATocASNWoEAHaGA0AEjHAA1OqBH2IKybPACA7KgBynOcjtd3cmFRC85y8UuPyAv2KQaWAGQAFUwEgTAAGE4DQCBwuZKKoEADm64sAF9HEqAqA0synL8sKi0rXZJ5cBeN4kV6CAqJkAEIXqqBsTQQcIBpLgZHwbUDpu3VZmCLadvefbDuOtQADcZGwBy8nEfyESRQAkGqfKBADHRwAUpqSpCdOtV7Xne7AvtoCBvuhQJgF6EtTPR-GixLUlugAD3Jylnv0JHdqgXpUbBCiMf4QG4RBqBQdEwAICcAAGbbEAHNnAFIOlTZLk2GgOZCBSYhQAIMcADzGoEADJnABrOx5nmRpFgAgDABROdAdwIWI3RYE7AmKgFbOs4FHOqg38DqlExGt4IaoIdEoAOkaoHNy2lCQG2oBcg9MAd0ZUX94JXMwd3PegU7w+gSPmeiQHvwK9ErgtKAhqoqAAGVsHwTp4QkPklhp95pCkAEMONzA+wo4PTdENnEWlQI4CgELGG0ctMSr+MAyNKkgA
+
+// --- Conclusions ---
+type Example1<Extra> = {
+  name: string
+  extraInfo: Extra
+}
+
+type Example2 = {
+  favFood: string
+}
+
+type Example3 = Example1<Example2>
+
+type arrNumbers = Array<number>
+// 타입스크립트에 내장된 interface 사용을 통한 배열 타입 지정
+
+const eampleA: Example3 = {
+  name: 'hhj',
+  extraInfo: {
+    favFood: 'pizza'
+  }
+}
+
+const eampleB: Example1<null> = {
+  name: 'hsh',
+  extraInfo: null
+}
+
+const eampleC: arrNumbers = [1, 2, 3, 4, 2.2]
