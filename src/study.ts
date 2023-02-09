@@ -194,23 +194,35 @@ const eampleB: Example1<null> = {
 const eampleC: arrNumbers = [1, 2, 3, 4, 2.2]
 
 // --- TypeScript의 객체 지향 프로그래밍 ---
-class ClassExampleA {
+abstract class ExampleUser {
   constructor(
-    private firstName: string,
-    private lastName: string,
-    public nickname: string
+    private privateFirstName: string,
+    private privateLastName: string,
+    private privateNickname: string,
+    protected firstName: string,
+    protected lastName: string,
+    protected nickname: string
   ) { }
+
+  abstract getNickname(): void
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
 }
 
-const hhjClass = new ClassExampleA('HyungJin', 'Han', '삐딱해골');
+class ExamplePlayer extends ExampleUser {
+  getNickname() {
+    console.log(this.nickname);
+    // private - 상속받은 자식에서 접근 불가능
+    // protected - 상속받은 자식에서 접근 가능
+  }
+}
 
-// hhjClass.firstName;
-// private이기 때문에 외부에서 사용 불가
+const hhjClass = new ExamplePlayer('HyungJin', 'Han', '삐딱해골', 'HyungJin', 'Han', '삐딱해골');
 
-// hhjClass.lastName;
-// private이기 때문에 외부에서 사용 불가
+hhjClass.getNickname();
 
-hhjClass.nickname;
-// public이기 때문에 외부에서 사용 가능
+hhjClass.getFullName();
 
 // https://www.typescriptlang.org/ko/play?#code/C4TwDgpgBAcghgW2gXigZ2AJwJYDsDmA3AFCiRQCC+KUuArggEYSYlnQAKANnCC1KgDexKKKiYIcACYB7XFxC1EEAFyxlAGhFiA9DqiBfccAMdVEAgE4EqxwDzjgHQ6ogDCHAqBNRAEb2AAGu2i41APxqqEDyg9KC8IX1oGZkwoAB8oOlwpCAAzPAgpYgBfYmJggFoCgGM6YAK8nMK5DCgwHj5MCig1bl5+IUDcZTUAcgALXoArbq0xEOo1ACYADiyc-KKSsoqq4Bq6lgAhJqgW+oEoYVHOpB7etF7u2dz9MuLSgpzkhMLgbDk11swAWTgAaxYABTHVTqJAASm2u34hzEEmAdEwuAOgSOykC2WyxEquGq-QG+1qnx+-0wAL6g26YJIeIAdKF9tMSNcoLdFg8sSsPvViSw0PsgV1QRAIc11tFkAA+KAAwTAzJU5Y41ZnXoEsU8zBoMkqynU8506j7ACsADYmfM8nclhylREmLy1BJpHIFHaogBtAC6+3dAEYNFAJgGAMyekj0e2amlgOjnAH+wMK4JO2TyEC2QAe44AdVfsTjc0oAophMDJMGC5jcFvdyjbqoT6gB5R2SVOu90YHAEAMRqIBxgyGRcSS4b2od3koYB6YBrB0CBhoL6Bu11b1lgADTU7aweHw3ciLD7A6HcBHPtnEADE+GgamC+C6+ZgBdxwDgHYAYmqggBqB8yAA1WoIBemsABrGoEAHCHABxBwAR5qgQBEScAFLHAAtVisWSra0h1WOA1ASJJUlwdJ9iwlI0ikEg0KgRg1HoLguH2SiuHNStLTZGtSMKH0w2ZFi1FPEAvRZKBAAGFwBQ8cAEXGoEAA6H-0AB5HAAHJqBAClRwADmq-cxAA1VkxABBxxDmVZasclIqRMNwX5cBkAB3XAmWwZJpXYGRrKkARkFQboexYSlkVGfT9mDEhPIgVYaAcgBqKBfRIbJgikVwoEAaiHAATxjMAOAwATocASNWoEAHaGA0AEjHAA1OqBH2IKybPACA7KgBynOcjtd3cmFRC85y8UuPyAv2KQaWAGQAFUwEgTAAGE4DQCBwuZKKoEADm64sAF9HEqAqA0synL8sKi0rXZJ5cBeN4kV6CAqJkAEIXqqBsTQQcIBpLgZHwbUDpu3VZmCLadvefbDuOtQADcZGwBy8nEfyESRQAkGqfKBADHRwAUpqSpCdOtV7Xne7AvtoCBvuhQJgF6EtTPR-GixLUlugAD3Jylnv0JHdqgXpUbBCiMf4QG4RBqBQdEwAICcAAGbbEAHNnAFIOlTZLk2GgOZCBSYhQAIMcADzGoEADJnABrOx5nmRpFgAgDABROdAdwIWI3RYE7AmKgFbOs4FHOqg38DqlExGt4IaoIdEoAOkaoHNy2lCQG2oBcg9MAd0ZUX94JXMwd3PegU7w+gSPmeiQHvwK9ErgtKAhqoqAAGVsHwTp4QkPklhp95pCkAEMONzA+wo4PTdENnEWlQI4CgELGG0ctMSr+MAyNKkgA
