@@ -259,6 +259,9 @@ class Dict {
   def(term: string) {
     return this.words[term]
   }
+  static hello() {
+    return 'hello';
+  }
 }
 
 class Word {
@@ -275,6 +278,12 @@ const dict = new Dict();
 dict.add(kimchi);
 dict.def('kimchi');
 
+// kimchi.term = 'xxx';
+// 읽기 전용 속성이므로 'term'에 할당할 수 없습니다.
+
 console.log(kimchi);
+
+console.log(Dict.hello());
+// "hello"
 
 // https://www.typescriptlang.org/ko/play?ts=4.9.5#code/IYIwzgLgTsDGEAJYBthjAgqmAplBA3gFAKlID2AdpFAK7zn4AUJZbbADlAJYBuwEHAi58BOAGLcokAHLAAtjgBcCGt0oBzADSt27Ef0HCehnABk0EOYpVrNOvXoNjjowTO6wA1pQXLV0Orauo6kXOSC8DgAJggAZlKyfraB9iGh4ZGCsahJNgE8aaGcUBE4UbGUnj7JBUHpZACUhAC+RCGgNHCIGjhW1b6KTI0qvOTc0e1svRDitMjI1jjDhA2kUH20UJQIAAYAJAQQABbcYAB0CdJWfi0Ihydn57k3ii27IW1tRChoGAAKqAAnngEDgAB6CSjRDDYUHEaZ9DzeQbLZoIxywKhgcjIHDPcgaJiPC5VFF+RoAbjWCAA9LTXKYEABaBCAQYHALGDgGwewAC4whAAnjgF2hwALo4AcQYQgEQJwA-tQhABG9gAAawClTTT6cYyhUWezuXyhWLJTKlZ8iN8sdREMdjgArBAAXgQlBwAHcEIDgCCoEwAOQACSBtE0ACl1J6tAgfcBKCGw4AEgcAjK2AF1XABc1UZ9fsDwdD4cjmbjSc9VPaqtNkAQFutdodzrhHtT-o0QezYe9EZTueTBdVgBTZtkIQAuC4AM9sAJUOAFKaEIATpsAHp0IQDPNXrOQguYARccAGEOAGc6EIAI8dHA8HhYZZcuiVeOGpqucgkALuOABjqEIAZVsAHN3ChCADzHAAG9esANQOASrG5fK96WrWeSwllPBlzxwa870fF933Fb9f3aA8ZmRGohgLIgkL6OYFiWYZKSAA
