@@ -55,5 +55,3 @@ function makeUser(user: UserInterfaceEx): UserInterfaceEx {
     sayHi: (name) => 'string'
   }
 }
-
-console.log(makeUser())
