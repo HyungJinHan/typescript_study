@@ -54,6 +54,8 @@ const myTeam: TeamInfo = {
   teamNum: 20
 }
 
+han.name = '한형진임';
+
 console.log(`
 이름 : ${me.name} | 나이 : ${me.age}
 지역 : ${me.city} | 친구 : ${me.friends}
@@ -63,7 +65,35 @@ interface 예제 : ${han.name}
 // 이름: hhj | 나이 : 28
 // 지역: Gwangju | 친구 : a, b, c, d
 // 팀 이름: 삐딱해골 | 팀 컬러: red | 팀 인원: 20
-// interface 예제 : 한형진
+// interface 예제 : 한형진임
 
 // 결론
 // type 키워드는 interface 키워드에 비해 좀 더 활용할 수 있는 범위가 넒다.
+
+// --- interface 여러개 사용 ---
+interface Example {
+  name: string
+}
+
+interface Example {
+  age: number
+}
+
+interface Example {
+  nickname: string
+}
+
+interface Example {
+  city: string
+}
+
+const interfaceExample: Example = {
+  name: '한형진',
+  age: 28,
+  nickname: '삐딱해골',
+  city: '광주'
+}
+
+console.log(interfaceExample);
+// { name: '한형진', age: 28, nickname: '삐딱해골', city: '광주' }
+// 같은 이름의 interface는 자동으로 합쳐짐 (type은 불가능) -> interface를 사용하는 결정적인 이유
