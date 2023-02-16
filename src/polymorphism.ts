@@ -21,3 +21,11 @@ class LocalStorage<T> {
     this.storage = {}
   }
 }
+
+const stringStorage = new LocalStorage<string>();
+stringStorage.get('key');
+stringStorage.set('hello', 'how are you');
+
+const booleanStorage = new LocalStorage<boolean>();
+booleanStorage.get('key');
+booleanStorage.set('hello', true);
