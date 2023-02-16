@@ -1,1 +1,1 @@
-# typescript_blockchain
+# typescript_study
